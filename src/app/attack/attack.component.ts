@@ -13,7 +13,7 @@ export class AttackComponent {
     const token = this.getCookie("auth-token");
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
-    this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/895fb1ae-ff60-4ed4-a028-a2502c25c86a', {
+    this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
       headers,
       withCredentials: true
     }).subscribe({
