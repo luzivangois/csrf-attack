@@ -14,7 +14,7 @@ export class AttackComponent {
     const token = this.getAuthToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
-    this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/d6591f66-a608-4dce-a4f6-a09c392a1ed3', {
+    this.http.delete('https://java-vuln-api.onrender.com/auth/deluser/f9252b24-586f-48ac-9132-204843577251', {
       headers,
       withCredentials: true
     }).subscribe({
